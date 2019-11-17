@@ -11,6 +11,9 @@ private:
     TreeNode<T> * right;
 
 public:
+
+
+
     TreeNode() : left(nullptr), right(nullptr) {
     }
 

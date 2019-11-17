@@ -45,7 +45,30 @@ public:
     }
 
     virtual ~BinaryTree() {
-        // homework
+        removeSubtree(root);
+    }
+
+    void removeSubtree(TreeNode<T>* aNode) {
+        if (aNode->getLeft() == nullptr && aNode->getRight() == nullptr) {
+            delete aNode;
+            return;
+        }
+        else if (aNode->getRight() == nullptr) {
+            removeSubtree(aNode->getLeft());
+            delete aNode;
+            return;
+        }
+        else if (aNode->getLeft() == nullptr) {
+            removeSubtree(aNode->getRight());
+            delete aNode;
+            return;
+        }
+        else {
+            removeSubtree(aNode->getLeft());
+            removeSubtree(aNode->getRight());
+            delete aNode;
+            return;
+        }
     }
 
     T LCA(T node1, T node2) {
