@@ -68,6 +68,10 @@ TEST(tree, lowestCommonAncestor) {
 
     BinaryTree<int> tree(root);
 
+    ASSERT_EQ(tree.LCA(4, 4), 4);
+    ASSERT_EQ(tree.LCA(7, 7), 7);
+    ASSERT_EQ(tree.LCA(7, 3), 8);
+    ASSERT_EQ(tree.LCA(7, 8), 8);
     ASSERT_EQ(tree.LCA(8, 6), 4);
-
+    ASSERT_EQ(tree.LCA(3, 2), 4);
 }

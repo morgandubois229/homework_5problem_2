@@ -124,19 +124,38 @@ public:
 
     T LCA(T node1, T node2) {
         // homework
+        if (node1 == node2) {
+            return node1;
+        }
+
         std::vector<T> path1;
         std::vector<T> path2;
 
         findPath(node1, root, path1);
         findPath(node2, root, path2);
 
-        for (int i = 1; i < path1.size() && i < path2.size(); i++) {
+        if (path1[0] == node1 && path2[0] == node2) {
+            return node1;
+        }
+
+        int limiter;
+
+        if (path1.size() > path2.size()) {
+            limiter = path2.size();
+        } else {
+            limiter = path1.size();
+        }
+
+        for (int i = 1; i < limiter; i++) {
 
             if (path1[i] != path2[i]) {
                 return path1[i - 1];
 
             }
 
+        }
+        if (path1[limiter - 1] == path2[limiter - 1]) {
+            return path1[limiter-1];
         }
     }
 
