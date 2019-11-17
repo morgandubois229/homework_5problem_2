@@ -68,7 +68,33 @@ public:
 
     std::vector<T> traversePostOrder() override {
         // homework, to be done iteratively
+        std::vector<T> aVector;
 
+        LinkedStack<TreeNode<T> *> stack1, stack2;
+
+        stack1.push(root);
+        TreeNode<T>* node;
+
+
+        while (!stack1.isEmpty()) {
+
+            node = stack1.peek();
+            stack1.pop();
+            stack2.push(node);
+
+            if (node->left)
+                stack1.push(node->left);
+            if (node->right)
+                stack1.push(node->right);
+        }
+
+
+        while (!stack2.isEmpty()) {
+            node = stack2.peek();
+            stack2.pop();
+            aVector.push_back(node->val);
+        }
+        return aVector;
     }
 
     virtual ~BinaryTree() {
