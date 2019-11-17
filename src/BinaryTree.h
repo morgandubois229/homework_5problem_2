@@ -4,13 +4,14 @@
 #include "TreeNode.h"
 #include <vector>
 #include "LinkedStack.h"
+#include "iostream"
 
 template<class T>
-class BinaryTree :  public Tree<T> {
+class BinaryTree : public Tree<T> {
 private:
-    TreeNode<T>* root;
+    TreeNode<T> *root;
 
-    int height(TreeNode<T>* root) {
+    int height(TreeNode<T> *root) {
         if (root == nullptr) {
             return 0;
         }
@@ -24,7 +25,7 @@ public:
         // not implemented yet
     }
 
-    BinaryTree(TreeNode<T>* root) : root(root) {
+    BinaryTree(TreeNode<T> *root) : root(root) {
     }
 
     bool contains(T val) override {
@@ -34,6 +35,31 @@ public:
 
     std::vector<T> traverseInOrder() override {
         // homework, to be done iteratively
+
+        std::vector<T> aVector;
+        LinkedStack<TreeNode<T> *> theStack;
+        TreeNode<T> *curr = root;
+
+        while (curr != NULL || theStack.isEmpty() == false) {
+
+            while (curr != NULL) {
+
+                theStack.push(curr);
+                curr = curr->left;
+            }
+
+
+            curr = theStack.peek();
+            theStack.pop();
+            T test = curr->val;
+            aVector.push_back(curr->val);
+
+            curr = curr->right;
+
+        }
+
+
+        return aVector;
     }
 
     std::vector<T> traversePreOrder() override {
@@ -48,22 +74,19 @@ public:
         removeSubtree(root);
     }
 
-    void removeSubtree(TreeNode<T>* aNode) {
+    void removeSubtree(TreeNode<T> *aNode) {
         if (aNode->getLeft() == nullptr && aNode->getRight() == nullptr) {
             delete aNode;
             return;
-        }
-        else if (aNode->getRight() == nullptr) {
+        } else if (aNode->getRight() == nullptr) {
             removeSubtree(aNode->getLeft());
             delete aNode;
             return;
-        }
-        else if (aNode->getLeft() == nullptr) {
+        } else if (aNode->getLeft() == nullptr) {
             removeSubtree(aNode->getRight());
             delete aNode;
             return;
-        }
-        else {
+        } else {
             removeSubtree(aNode->getLeft());
             removeSubtree(aNode->getRight());
             delete aNode;
