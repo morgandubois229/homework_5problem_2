@@ -54,3 +54,20 @@ TEST(tree, postOrderTraversal) {
     ASSERT_TRUE(key==returnedVector);
 
 }
+
+TEST(tree, lowestCommonAncestor) {
+    TreeNode<int>* root = new TreeNode<int>(4);
+    root->setLeft(new TreeNode<int>(8));
+    root->setRight(new TreeNode<int>(6));
+
+    root->getLeft()->setLeft(new TreeNode<int>(7));
+    root->getLeft()->setRight(new TreeNode<int>(3));
+
+    root->getRight()->setLeft(new TreeNode<int>(2));
+    root->getRight()->setRight(new TreeNode<int>(9));
+
+    BinaryTree<int> tree(root);
+
+    ASSERT_EQ(tree.LCA(8, 6), 4);
+
+}

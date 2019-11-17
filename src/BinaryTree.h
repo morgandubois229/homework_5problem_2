@@ -19,6 +19,7 @@ private:
     }
 
 public:
+
     BinaryTree() : root(nullptr) {};
 
     BinaryTree(std::vector<T> &array) {
@@ -123,6 +124,40 @@ public:
 
     T LCA(T node1, T node2) {
         // homework
+        std::vector<T> path1;
+        std::vector<T> path2;
+
+        findPath(node1, root, path1);
+        findPath(node2, root, path2);
+
+        for (int i = 1; i < path1.size() && i < path2.size(); i++) {
+
+            if (path1[i] != path2[i]) {
+                return path1[i - 1];
+
+            }
+
+        }
+    }
+
+    bool findPath(T value1, TreeNode<T>* current, std::vector<T>& path) {
+
+        if (current == nullptr) {
+            return false;
+        }
+
+        path.push_back(current->val);
+
+        if (current->val == value1) {
+            return true;
+        }
+
+        if (findPath(value1, current->getLeft(), path) || findPath(value1, current->getRight(), path)) {
+            return true;
+        }
+
+        path.pop_back();
+        return false;
     }
 
     bool add(const T &) override {
